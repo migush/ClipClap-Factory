@@ -22,22 +22,23 @@ The system consists of:
 
 ## 📋 Prerequisites
 
-- macOS with Docker support
-- [Colima](https://github.com/abiosoft/colima)
 - [Docker](https://docs.docker.com/get-docker/)
-- At least 4GB RAM available for containers
+- [Colima (Only for MacOS)](https://github.com/abiosoft/colima)
+
+At least 4GB RAM available for containers
 
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd team_2
+git clone git@github.com:migush/ClipClap-Factory.git
+cd ClipClap-Factory
 ```
 
-### 2. Start Colima Environment
+### 2. Start n8n and crawl4ai
 
+#### MacOS Users: Use Colima
 ```bash
 chmod +x start_colima.sh
 ./start_colima.sh
@@ -48,11 +49,12 @@ This script:
 - Starts a new Colima environment with 2 CPUs and 4GB RAM
 - Mounts your project directories for file sharing
 
-### 3. Start the Services
+### 3. Windows/Linux
 
 ```bash
 docker-compose up -d
 ```
+
 
 This will start:
 - **n8n** on `http://localhost:5678`
@@ -62,107 +64,125 @@ This will start:
 
 1. Open your browser and navigate to `http://localhost:5678`
 2. Complete the initial n8n setup
-3. Import the workflow from `first_attempt.json`
+3. Import the workflow from `workflow.json`
 
-### 5. Configure API Keys
+### 5. Configure API Keys (Not Implemented Yet)
 
-Create a `.env` file in the project root:
+[//]: # (Create a `.env` file in the project root:)
 
-```env
-# RunwayML API Key (for video generation)
-RUNWAY_API_KEY=your_runway_api_key_here
+[//]: # ()
+[//]: # (```env)
 
-# Social Media API Keys (for posting)
-INSTAGRAM_ACCESS_TOKEN=your_instagram_token
-TIKTOK_ACCESS_TOKEN=your_tiktok_token
-YOUTUBE_API_KEY=your_youtube_api_key
+[//]: # (# RunwayML API Key &#40;for video generation&#41;)
 
-# Optional: OpenAI API Key (alternative to Ollama)
-OPENAI_API_KEY=your_openai_key
-```
+[//]: # (RUNWAY_API_KEY=your_runway_api_key_here)
+
+[//]: # ()
+[//]: # (# Social Media API Keys &#40;for posting&#41;)
+
+[//]: # (INSTAGRAM_ACCESS_TOKEN=your_instagram_token)
+
+[//]: # (TIKTOK_ACCESS_TOKEN=your_tiktok_token)
+
+[//]: # (YOUTUBE_API_KEY=your_youtube_api_key)
+
+[//]: # ()
+[//]: # (# Optional: OpenAI API Key &#40;alternative to Ollama&#41;)
+
+[//]: # (OPENAI_API_KEY=your_openai_key)
+
+[//]: # (```)
 
 ## 📁 Project Structure
 
 ```
-team_2/
-├── docker-compose.yml          # Container orchestration
-├── start_colima.sh            # Colima startup script
-├── first_attempt.json         # Main workflow
-├── first_test.json            # Test workflow
-├── runway_api_key.txt         # RunwayML API key
-├── files/                     # Generated content storage (mouted)
-│   └── 2025-06-22.md         # Sample video script
-└── .n8n/                      # n8n configuration (mounted)
+ClipClap-Factory/
+├── docker-compose.yml           # Container orchestration
+├── start_colima.sh              # Colima startup script
+├── workflow.json                # Main workflow
+├── files/                       # Generated content storage (mouted)
+└── .n8n/                        # n8n configuration (mounted)
 ```
 
 ## 🔧 Current Workflow
 
-The existing workflow (`first_attempt.json`) performs:
+The existing workflow (`workflow.json`) performs:
 
 1. **Content Discovery**: Scrapes AI news from TLDR.tech
 2. **AI Processing**: Uses Ollama to generate video scripts
 3. **Content Storage**: Saves generated scripts to `files/` directory
-
-### Workflow Nodes:
-
-- **Manual Trigger**: Starts the workflow
-- **Edit Fields**: Sets target URL for scraping
-- **HTTP Request**: Calls crawl4ai service
-- **AI Agent**: Processes content with Ollama
-- **Convert to File**: Converts AI output to file format
-- **Read/Write Files**: Saves content to disk
 
 ## 🎬 Usage
 
 ### Running the Current Workflow
 
 1. Open n8n at `http://localhost:5678`
-2. Navigate to the imported workflow
-3. Click "Execute Workflow"
-4. Check the `files/` directory for generated content
+2. Create a new workflow and import `workflow.json`
+3. Navigate to the imported workflow
+4. Make necessary adjustments (e.g., API keys)
+5. Execute Workflow
+6. Check the `files/` directory for generated content
 
-### Generated Content
-
-The workflow creates markdown files with video scripts like:
-- Title and concept
-- Detailed script with timing
-- Visual style guidelines
-- Hashtag recommendations
 
 ## 🚧 Development Roadmap
 
-### Level 1 (Current) ✅
-- [x] Content scraping from TLDR.tech
-- [x] AI-powered script generation
-- [x] Basic file management
+### Phase 1: Foundation & Content Discovery ✅
+- [x] **Infrastructure Setup**: Docker containers for n8n and crawl4ai
+- [x] **Content Scraping**: Automated scraping from TLDR.tech AI section
+- [x] **AI Integration**: Ollama local AI model for content processing
+- [x] **Workflow Automation**: n8n workflow for content discovery and processing
+- [x] **File Management**: Automated file generation and storage system
 
-### Level 2 (In Progress)
-- [ ] Video generation with RunwayML
-- [ ] Text-to-speech integration
-- [ ] Background music generation
-- [ ] Caption overlay system
+### Phase 2: Content Generation & Processing ✅
+- [x] **AI-Powered Script Generation**: Automated script creation from scraped content
+- [x] **Image Generation**: AI-generated images for video content (OpenAI API integration)
+- [x] **Video Generation**: Automated video creation with Kling AI
+- [x] **Content Processing Pipeline**: End-to-end content transformation workflow
 
-### Level 3 (Planned)
-- [ ] Instagram posting automation
-- [ ] TikTok posting automation
-- [ ] YouTube Shorts posting automation
+### Phase 3: Video Enhancement & Production 🔄
+- [ ] **Text-to-Speech Integration**: Automated voice-over generation
+- [ ] **Background Music**: AI-generated or curated background music
+- [ ] **Caption Overlay System**: Automated subtitle generation and placement
+- [ ] **Video Editing**: Automated trimming, transitions, and effects
+- [ ] **Quality Optimization**: Video compression and format optimization
 
-### Level 4 (Future)
-- [ ] Fully automated content chain
-- [ ] Multi-platform optimization
-- [ ] Performance analytics
+### Phase 4: Multi-Platform Publishing 🎯
+- [ ] **Instagram Integration**: Automated posting to Instagram Reels
+- [ ] **TikTok API Integration**: Automated posting to TikTok
+- [ ] **YouTube Shorts**: Automated posting to YouTube Shorts
+- [ ] **Cross-Platform Optimization**: Platform-specific video formatting
+- [ ] **Scheduling System**: Intelligent posting time optimization
 
-### Level 5 (Advanced)
-- [ ] Trending topic discovery
-- [ ] Autonomous content ideation
-- [ ] Viral prediction algorithms
+### Phase 5: Advanced Automation & Intelligence 🚀
+- [ ] **Trending Topic Discovery**: AI-powered trend analysis
+- [ ] **Content Performance Analytics**: Automated performance tracking
+- [ ] **Viral Prediction**: AI algorithms for content virality prediction
+- [ ] **A/B Testing**: Automated content variation testing
+- [ ] **Audience Engagement**: Automated response and interaction management
 
-## 🔧 Configuration
+### Phase 6: Enterprise Features & Scaling 🌟
+- [ ] **Multi-Account Management**: Support for multiple social media accounts
+- [ ] **Content Calendar**: Advanced scheduling and content planning
+- [ ] **Team Collaboration**: Multi-user workflow management
+- [ ] **Advanced Analytics**: Comprehensive reporting and insights
+- [ ] **API Integration**: Third-party service integrations
 
-### Environment Variables
+### Current Status: Phase 2 Complete ✅
+The system currently successfully:
+- Scrapes trending AI content from TLDR.tech
+- Generates AI-powered scripts using Ollama
+- Creates AI-generated images using OpenAI
+- Produces videos using Kling AI
+- Stores all generated content automatically
 
-| Variable | Description | Required |
+**Next Milestone**: Phase 3 - Adding audio, music, and caption features to complete the video production pipeline.
+
+## 🔧 Configuration (Not Implemented Yet)
+
+### Environment Variables (Not Implemented Yet)
+
 |----------|-------------|----------|
+| Variable | Description | Required |
 | `RUNWAY_API_KEY` | RunwayML API key for video generation | Yes |
 | `INSTAGRAM_ACCESS_TOKEN` | Instagram Graph API token | For Level 3+ |
 | `TIKTOK_ACCESS_TOKEN` | TikTok API access token | For Level 3+ |
@@ -184,7 +204,7 @@ The workflow uses these n8n nodes:
 
 ### Common Issues
 
-1. **Colima won't start**
+#### Colima won't start
    ```bash
    # Check if Docker is running
    docker ps
@@ -194,7 +214,7 @@ The workflow uses these n8n nodes:
    colima start --cpu 2 --memory 4
    ```
 
-2. **n8n not accessible**
+#### n8n not accessible
    ```bash
    # Check if containers are running
    docker-compose ps
@@ -203,11 +223,6 @@ The workflow uses these n8n nodes:
    docker-compose down
    docker-compose up -d
    ```
-
-3. **Workflow fails**
-   - Check n8n execution logs
-   - Verify API keys are set correctly
-   - Ensure crawl4ai service is running
 
 ### Logs
 
@@ -220,38 +235,6 @@ docker-compose logs n8n
 docker-compose logs crawl4ai
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Here's how to get started:
-
-### Development Setup
-
-1. Fork the repository
-2. Clone your fork locally
-3. Follow the Quick Start instructions
-4. Create a feature branch: `git checkout -b feature/amazing-feature`
-
-### Development Guidelines
-
-- **Code Style**: Follow existing patterns
-- **Testing**: Test workflows in n8n before committing
-- **Documentation**: Update README.md for new features
-- **Commits**: Use descriptive commit messages
-
-### Adding New Features
-
-1. **New Workflow Nodes**: Document in README.md
-2. **API Integrations**: Add environment variables
-3. **Dependencies**: Update docker-compose.yml
-4. **Configuration**: Update setup instructions
-
-### Pull Request Process
-
-1. Ensure your code follows the project guidelines
-2. Test your changes thoroughly
-3. Update documentation as needed
-4. Submit a pull request with a clear description
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -261,15 +244,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [n8n](https://n8n.io/) for workflow automation
 - [crawl4ai](https://github.com/unclecode/crawl4ai) for web scraping
 - [Ollama](https://ollama.ai/) for local AI processing
-- [TLDR.tech](https://tldr.tech/) for content inspiration
+- [Docker](https://www.docker.com/) for containerization
+- [Colima](https://github.com/abiosoft/colima) for local Docker on macOS
+
 
 ## 📞 Support
 
 For questions or issues:
-1. Check the troubleshooting section
-2. Review n8n documentation
-3. Open an issue on GitHub
-4. Check the project discussions
+1. Review n8n documentation
+2. Review crawl4ai documentation
+3. Review Ollama documentation
+4. Review Docker documentation
+5. Review Colima documentation
+6. Open an issue on GitHub
 
 ---
 

@@ -11,7 +11,7 @@ services:
     volumes:
       # Bind your host folder (inside Colima VM) to n8n's .n8n directory
       - /my-n8n-files:/home/node/.n8n:rw
-      - /team_2_files:/home/node/files:rw
+      - /ClipClap-Factory-files:/home/node/files:rw
 
   crawl4ai:
     image: unclecode/crawl4ai:latest
