@@ -177,28 +177,6 @@ The system currently successfully:
 
 **Next Milestone**: Phase 3 - Adding audio, music, and caption features to complete the video production pipeline.
 
-## 🔧 Configuration (Not Implemented Yet)
-
-### Environment Variables (Not Implemented Yet)
-
-|----------|-------------|----------|
-| Variable | Description | Required |
-| `RUNWAY_API_KEY` | RunwayML API key for video generation | Yes |
-| `INSTAGRAM_ACCESS_TOKEN` | Instagram Graph API token | For Level 3+ |
-| `TIKTOK_ACCESS_TOKEN` | TikTok API access token | For Level 3+ |
-| `YOUTUBE_API_KEY` | YouTube Data API key | For Level 3+ |
-| `OPENAI_API_KEY` | OpenAI API key (alternative to Ollama) | Optional |
-
-### n8n Settings
-
-The workflow uses these n8n nodes:
-- **Manual Trigger**: Workflow initiation
-- **Set**: Data manipulation
-- **HTTP Request**: API calls
-- **AI Agent**: LangChain integration
-- **Ollama Chat Model**: Local AI processing
-- **Convert to File**: File format conversion
-- **Read/Write Files**: File system operations
 
 ## 🐛 Troubleshooting
 
