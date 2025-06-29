@@ -1,0 +1,1602 @@
+{
+  "name": "ClipClap-Factory",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1100,
+        620
+      ],
+      "id": "66a61267-7932-4b59-b02d-400d36b61208",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "model": "qwen2.5-coder:14b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        860
+      ],
+      "id": "132bfe22-37bc-44e5-8e4a-75f7e2a4fb77",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "EUkwF5TTtd8IhXRM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4e65c5fd-dc06-4a3c-b6fc-a43b0905428e",
+              "name": "=target",
+              "value": "=https://tldr.tech/ai/{{ $now.minus(1,'days').format('yyyy-MM-dd') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        620
+      ],
+      "id": "12a5efae-0af7-4b96-bb2b-1e971d54ce71",
+      "name": "Prepare the URL for the source articles"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11235/crawl/",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "urls",
+              "value": "={{ [$json.target] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -680,
+        620
+      ],
+      "id": "623876bc-49c1-4763-8cb9-723ac567fd7e",
+      "name": "Extract content from the Internet"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create a prompt for an engaging image from the following text:\n---\n{{ $json.results[0].markdown.raw_markdown }}\n---\nUse the following style:\n---\nHyper-realistic digital image made with the following camera settings.\nShutter speed: 1/100\nAperture: f/1.4\nISO: 100\nFocal length: 35mm\n---",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -420,
+        620
+      ],
+      "id": "2f61224e-d109-4544-97e6-2a27ae467cc5",
+      "name": "Prepare a prompt for image generation",
+      "notes": "{{ $json.results[0].markdown.raw_markdown }}"
+    },
+    {
+      "parameters": {
+        "model": "qwen2.5-coder:14b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        40,
+        600
+      ],
+      "id": "08ea69c3-66d8-4e15-8fc7-b969a25d46ad",
+      "name": "Ollama Chat Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "EUkwF5TTtd8IhXRM",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rewrite the following prompt:\n---\n{{ $json.output }}\n---\nIt should be suitable for creating a cinematic 16:9, 5-second video. It must describe the desired motion and should not exceed 2500 characters.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        60,
+        400
+      ],
+      "id": "f1a0c4e1-a237-4122-a281-6544646e453e",
+      "name": "Prepare a prompt for video generation"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "model",
+              "value": "gpt-image-1"
+            },
+            {
+              "name": "size",
+              "value": "1024x1024"
+            },
+            {
+              "name": "n",
+              "value": "={{ 1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        40,
+        820
+      ],
+      "id": "ade92f18-ec6f-4277-a8a1-7c73e474482a",
+      "name": "Generate Image with OpenAI API",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "fabsfO7qqw6vjDWz",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.freepik.com/v1/ai/image-to-video/kling-v2",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-freepik-api-key",
+              "value": "FPSXa0c1a25400f3c2c3f3fd7f555a9360d2"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.video_prompt }}"
+            },
+            {
+              "name": "image",
+              "value": "={{ $json.image }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        980,
+        580
+      ],
+      "id": "4808c89b-15f3-4481-8e2e-7dd2d9d1b9de",
+      "name": "Generate Video with Freepik",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0fcbef47-1b1a-484b-9b06-e983bc4826db",
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "COMPLETED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1500,
+        440
+      ],
+      "id": "2ec3fd06-651e-4427-a90e-289ed7d6cfd6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1720,
+        680
+      ],
+      "id": "e6d15713-682a-4502-8d01-999fde3ed954",
+      "name": "Wait",
+      "webhookId": "3afbce18-2a6a-47f1-aa61-793596033d35"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5c7b765a-c17b-4c3d-8a99-3d390a24854b",
+              "name": "video_prompt",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        400
+      ],
+      "id": "b69133ce-0ec4-4d29-808c-8da9ffc356c5",
+      "name": "Extract video prompt"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "55c6c0b4-2af1-4cb4-8c01-a7555c1ff169",
+              "name": "image",
+              "value": "={{ $json.data[0].b64_json }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        820
+      ],
+      "id": "9da4b20d-5bce-4e5b-b08d-4d12969a29fc",
+      "name": "Exctract image as base64"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        720,
+        580
+      ],
+      "id": "a36ab4fe-41b2-4b96-99b5-3284b9dd85a2",
+      "name": "Prepare data for Freepik API",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "url": "=https://api.freepik.com/v1/ai/image-to-video/kling-v2/{{ $json.data.task_id }}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-freepik-api-key",
+              "value": "FPSXa0c1a25400f3c2c3f3fd7f555a9360d2"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        580
+      ],
+      "id": "0dafdb01-4ede-4b09-956e-f5ed28c63517",
+      "name": "Check if video is generated",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.generated[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2240,
+        520
+      ],
+      "id": "5c0dc9d7-6e33-470d-a038-ea54aa2239cc",
+      "name": "Download the generated video"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{ $binary.data.fileName }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2480,
+        620
+      ],
+      "id": "7c8611e4-e28e-4c42-8a32-2374b97be857",
+      "name": "Write the video to file"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        -120
+      ],
+      "id": "2bab8ee7-5267-4a9f-8264-ae3dcbf575b7",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_raw_markdown.md",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        160
+      ],
+      "id": "c0638196-7715-4ca9-8212-8765ba0eb498",
+      "name": "Save the initial text"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_photo_prompt.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        240,
+        160
+      ],
+      "id": "4c07d776-5e68-4c1f-978b-cf37e936585e",
+      "name": "Write image prompt to file"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_image.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        760,
+        1080
+      ],
+      "id": "38aee00c-6f0d-4c71-8232-94c5262914e3",
+      "name": "Write the generated image to file"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_video_prompt.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        720,
+        160
+      ],
+      "id": "080e27b2-c7cc-4255-8566-c1ce79eef200",
+      "name": "Write video prompt to file"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_video_request_body.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        160
+      ],
+      "id": "3d0f4bac-94b4-4c97-90ee-97395f2ad7c0",
+      "name": "Write Freepik request body to file"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_video_response_body.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        1080
+      ],
+      "id": "ec7a6ccd-5f7e-4778-a01b-33e0913c769c",
+      "name": "Write Freepik response to file"
+    },
+    {
+      "parameters": {
+        "options": {
+          "headerRow": false
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1700,
+        160
+      ],
+      "id": "e7d0f5f6-60ce-4654-8444-be622a915746",
+      "name": "Convert status data to CSV"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_video_generation_status.csv",
+        "options": {
+          "append": true
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        160
+      ],
+      "id": "c2e16ee3-d594-4950-a214-672e7db8700c",
+      "name": "Save status data to CSV"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -900,
+        -120
+      ],
+      "id": "39bb4f98-8557-4b6a-b28e-37eab2251e6b",
+      "name": "Convert error to json",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_error.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        -120
+      ],
+      "id": "598c1b35-21fa-4452-b4d9-1b9c857a0f4e",
+      "name": "Write error to file"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "SIwcHGRFJCUeoU4Z",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -420,
+        160
+      ],
+      "name": "Call Log",
+      "id": "292bf2b9-3a53-4f79-a252-d3f6034653c7"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "EOhZDmJO4Mq3yuwN",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        160
+      ],
+      "name": "Call Log_1",
+      "id": "335e73f0-fd2c-4060-89a7-a2faa15039b0"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "gWzYPY20UoWU9Y6v",
+          "mode": "list",
+          "cachedResultName": "Log"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        1080
+      ],
+      "name": "Call Log_1_1",
+      "id": "9fb72bcd-d91e-4197-a6a1-a1e572875d09"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "PkgraccljHqVRl6S",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        160
+      ],
+      "name": "Call Log_1_1_1",
+      "id": "e76349f7-affe-42c6-9240-fd189e2abd45"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "uGHYfPCVnm6ybNSE",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1000,
+        160
+      ],
+      "name": "Call Log_1_1_1_1",
+      "id": "edd9396f-d472-4daf-a506-652efa3f33e0"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "FJenhxUxyxhbr398",
+          "mode": "list",
+          "cachedResultName": "Log"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1180,
+        1080
+      ],
+      "name": "Call Log_1_1_1_1_1",
+      "id": "29df133d-f31e-466c-8702-030b31c27bb5"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "g0XhVe8rPOxKC5pc",
+          "mode": "list",
+          "cachedResultName": "Log"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "data_task_id": "={{ $json.data.task_id }}",
+            "data_status": "={{ $json.data.status }}",
+            "data_generated": "={{ $json.data.generated }}"
+          },
+          "matchingColumns": [
+            "data_task_id",
+            "data_status",
+            "data_generated"
+          ],
+          "schema": [
+            {
+              "id": "data_task_id",
+              "displayName": "data_task_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_status",
+              "displayName": "data_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "data_generated",
+              "displayName": "data_generated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1480,
+        160
+      ],
+      "name": "Call Log_1_1_1_1_1_1",
+      "id": "de8bac88-e5d0-4806-80aa-3cdc5ebe0f7d"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "=17841475617920757",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $json.url.replace(\"dl=0\",\"dl=1\") }}"
+              },
+              {
+                "name": "caption",
+                "value": "=Caption"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        1320
+      ],
+      "id": "52be3d9c-499f-400c-9334-39d48c0674a1",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "2KuweZIBz1nhbAJN",
+          "name": "Facebook Graph account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "909c946d-c7ef-4ae0-9b46-87e111c26540",
+              "name": "image_url",
+              "value": "=data:image/jpeg;base64,{{ $json.image }}",
+              "type": "string"
+            },
+            {
+              "id": "6de75fe6-3416-4814-8033-35b8ea9a6a86",
+              "name": "caption",
+              "value": "apple",
+              "type": "string"
+            },
+            {
+              "id": "53b7c6d4-cb53-4ef6-8970-842867d692b8",
+              "name": "node",
+              "value": "17841475617920757",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        860
+      ],
+      "id": "45836747-00cf-4b25-9eba-954c1564be3a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "=17841475617920757",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              },
+              {
+                "name": "caption",
+                "value": "=Caption"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        1320
+      ],
+      "id": "5f3819a8-f8cf-4714-8b3f-a3d7cff2a1a4",
+      "name": "Facebook Graph API1",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "2KuweZIBz1nhbAJN",
+          "name": "Facebook Graph account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "dropboxApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"path\": \"{{ $json.path_lower }}\",\n    \"settings\": {\n        \"access\": \"viewer\",\n        \"allow_download\": true,\n        \"audience\": \"public\",\n        \"requested_visibility\": \"public\"\n    }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1060,
+        1320
+      ],
+      "id": "0b9dfb05-8b0a-4cf2-92b7-9532efa42bd3",
+      "name": "HTTP Request",
+      "credentials": {
+        "dropboxApi": {
+          "id": "qqUzZQ1f2KRDipmY",
+          "name": "Dropbox account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "QAbUOt8mk5qOssHk",
+          "mode": "list",
+          "cachedResultName": "Publish the image"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        780,
+        1320
+      ],
+      "name": "Call Publish the image",
+      "id": "87e38957-1778-4203-ba15-05ed3abd5de2"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v22.0",
+        "node": "=17841475617920757",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
+              },
+              {
+                "name": "caption",
+                "value": "=Caption"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        2900,
+        740
+      ],
+      "id": "aae6ff39-0899-4ff0-b6ae-01fd373e8882",
+      "name": "Facebook Graph API3",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "2KuweZIBz1nhbAJN",
+          "name": "Facebook Graph account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "0UEtd2ETlZL0p5gB",
+          "mode": "list",
+          "cachedResultName": "Publish video"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url_replace": "={{ $json.data.generated[0] }}"
+          },
+          "matchingColumns": [
+            "url_replace"
+          ],
+          "schema": [
+            {
+              "id": "url_replace",
+              "displayName": "url_replace",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2100,
+        880
+      ],
+      "name": "Call Publish video",
+      "id": "ae8cf672-359b-4ea1-9808-480e3730ce43",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2900,
+        1000
+      ],
+      "id": "92e53690-4648-479c-bd76-5b732983d58d",
+      "name": "Wait1",
+      "webhookId": "45f8b5d0-6e2c-4689-88ec-7d774977db62"
+    },
+    {
+      "parameters": {
+        "hostUrl": "graph-video.facebook.com",
+        "graphApiVersion": "v22.0",
+        "node": "17872066899379231",
+        "options": {
+          "fields": {
+            "field": [
+              {
+                "name": "status"
+              },
+              {
+                "name": "status_code"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        2380,
+        880
+      ],
+      "id": "df889987-ca9c-4fed-8b3c-336570fbdbcf",
+      "name": "Facebook Graph API2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "2KuweZIBz1nhbAJN",
+          "name": "Facebook Graph account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "31381b15-daae-404f-bde7-9e48151332a2",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2660,
+        880
+      ],
+      "id": "29890b1d-7d8d-4c7e-afc6-131a5ba86e7c",
+      "name": "If1"
+    }
+  ],
+  "pinData": {
+    "When clicking ‘Execute workflow’": [
+      {
+        "json": {}
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Prepare the URL for the source articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prepare a prompt for image generation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare the URL for the source articles": {
+      "main": [
+        [
+          {
+            "node": "Extract content from the Internet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract content from the Internet": {
+      "main": [
+        [
+          {
+            "node": "Prepare a prompt for image generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare a prompt for image generation": {
+      "main": [
+        [
+          {
+            "node": "Prepare a prompt for video generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Generate Image with OpenAI API",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Prepare a prompt for video generation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare a prompt for video generation": {
+      "main": [
+        [
+          {
+            "node": "Extract video prompt",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log_1_1_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image with OpenAI API": {
+      "main": [
+        [
+          {
+            "node": "Exctract image as base64",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log_1_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Video with Freepik": {
+      "main": [
+        [
+          {
+            "node": "Check if video is generated",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log_1_1_1_1_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Download the generated video",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Publish video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Check if video is generated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract video prompt": {
+      "main": [
+        [
+          {
+            "node": "Prepare data for Freepik API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exctract image as base64": {
+      "main": [
+        [
+          {
+            "node": "Prepare data for Freepik API",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare data for Freepik API": {
+      "main": [
+        [
+          {
+            "node": "Call Log_1_1_1_1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Generate Video with Freepik",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if video is generated": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Log_1_1_1_1_1_1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download the generated video": {
+      "main": [
+        [
+          {
+            "node": "Write the video to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Convert error to json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save the initial text": {
+      "main": [
+        []
+      ]
+    },
+    "Convert status data to CSV": {
+      "main": [
+        [
+          {
+            "node": "Save status data to CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert error to json": {
+      "main": [
+        [
+          {
+            "node": "Write error to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write image prompt to file": {
+      "main": [
+        []
+      ]
+    },
+    "Write the generated image to file": {
+      "main": [
+        []
+      ]
+    },
+    "Write video prompt to file": {
+      "main": [
+        []
+      ]
+    },
+    "Write Freepik request body to file": {
+      "main": [
+        []
+      ]
+    },
+    "Write Freepik response to file": {
+      "main": [
+        []
+      ]
+    },
+    "Save status data to CSV": {
+      "main": [
+        []
+      ]
+    },
+    "Call Log": {
+      "main": [
+        [
+          {
+            "node": "Save the initial text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1": {
+      "main": [
+        [
+          {
+            "node": "Write image prompt to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1_1": {
+      "main": [
+        [
+          {
+            "node": "Write the generated image to file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Publish the image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1_1_1": {
+      "main": [
+        [
+          {
+            "node": "Write video prompt to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1_1_1_1": {
+      "main": [
+        [
+          {
+            "node": "Write Freepik request body to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1_1_1_1_1": {
+      "main": [
+        [
+          {
+            "node": "Write Freepik response to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Log_1_1_1_1_1_1": {
+      "main": [
+        [
+          {
+            "node": "Convert status data to CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Publish the image": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Publish video": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Facebook Graph API2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Sofia",
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "17Jlitf4W5zNFbWY"
+  },
+  "versionId": "1743c760-f853-4eec-a2d8-53c5167fde7f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b8e5a0b86e5e2e211bec790018ac797007586ee36f18727c0ba0ff6049db12c0"
+  },
+  "id": "17Jlitf4W5zNFbWY",
+  "tags": []
+}
