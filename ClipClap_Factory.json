@@ -253,8 +253,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1500,
-        440
+        1380,
+        420
       ],
       "id": "2ec3fd06-651e-4427-a90e-289ed7d6cfd6",
       "name": "If"
@@ -267,8 +267,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1720,
-        680
+        1760,
+        840
       ],
       "id": "e6d15713-682a-4502-8d01-999fde3ed954",
       "name": "Wait",
@@ -378,7 +378,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2240,
+        2460,
         520
       ],
       "id": "5c0dc9d7-6e33-470d-a038-ea54aa2239cc",
@@ -393,7 +393,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        2480,
+        2700,
         620
       ],
       "id": "7c8611e4-e28e-4c42-8a32-2374b97be857",
@@ -509,7 +509,7 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1700,
+        1920,
         160
       ],
       "id": "e7d0f5f6-60ce-4654-8444-be622a915746",
@@ -526,7 +526,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        1920,
+        2140,
         160
       ],
       "id": "c2e16ee3-d594-4950-a214-672e7db8700c",
@@ -722,69 +722,6 @@
     },
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "g0XhVe8rPOxKC5pc",
-          "mode": "list",
-          "cachedResultName": "Log"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "data_task_id": "={{ $json.data.task_id }}",
-            "data_status": "={{ $json.data.status }}",
-            "data_generated": "={{ $json.data.generated }}"
-          },
-          "matchingColumns": [
-            "data_task_id",
-            "data_status",
-            "data_generated"
-          ],
-          "schema": [
-            {
-              "id": "data_task_id",
-              "displayName": "data_task_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "data_status",
-              "displayName": "data_status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "data_generated",
-              "displayName": "data_generated",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        1480,
-        160
-      ],
-      "name": "Call Log_1_1_1_1_1_1",
-      "id": "de8bac88-e5d0-4806-80aa-3cdc5ebe0f7d"
-    },
-    {
-      "parameters": {
         "httpRequestMethod": "POST",
         "graphApiVersion": "v22.0",
         "node": "=17841475617920757",
@@ -967,7 +904,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        2900,
+        3120,
         740
       ],
       "id": "aae6ff39-0899-4ff0-b6ae-01fd373e8882",
@@ -1014,7 +951,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        2100,
+        2320,
         880
       ],
       "name": "Call Publish video",
@@ -1027,7 +964,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2900,
+        3120,
         1000
       ],
       "id": "92e53690-4648-479c-bd76-5b732983d58d",
@@ -1055,7 +992,7 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        2380,
+        2600,
         880
       ],
       "id": "df889987-ca9c-4fed-8b3c-336570fbdbcf",
@@ -1087,6 +1024,50 @@
                 "operation": "equals",
                 "name": "filter.operator.equals"
               }
+            },
+            {
+              "id": "10b240f1-abe2-40f1-91ac-f7efeff41836",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "PUBLISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2880,
+        880
+      ],
+      "id": "29890b1d-7d8d-4c7e-afc6-131a5ba86e7c",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aee99160-d56b-4cb5-9870-80d692bb2615",
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "FAILED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "and"
@@ -1096,11 +1077,24 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2660,
-        880
+        1500,
+        700
       ],
-      "id": "29890b1d-7d8d-4c7e-afc6-131a5ba86e7c",
-      "name": "If1"
+      "id": "4bd31f15-3c8b-4fea-81b8-1979153a374a",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "errorMessage": "Video Generation Failed"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        680
+      ],
+      "id": "c8c04259-5b6b-4068-b988-fc8602710816",
+      "name": "Stop and Error"
     }
   ],
   "pinData": {
@@ -1256,7 +1250,7 @@
         ],
         [
           {
-            "node": "Wait",
+            "node": "If2",
             "type": "main",
             "index": 0
           }
@@ -1326,7 +1320,7 @@
             "index": 0
           },
           {
-            "node": "Call Log_1_1_1_1_1_1",
+            "node": "Convert status data to CSV",
             "type": "main",
             "index": 0
           }
@@ -1483,17 +1477,6 @@
         ]
       ]
     },
-    "Call Log_1_1_1_1_1_1": {
-      "main": [
-        [
-          {
-            "node": "Convert status data to CSV",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Facebook Graph API": {
       "main": [
         [
@@ -1582,6 +1565,24 @@
           }
         ]
       ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -1592,7 +1593,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "17Jlitf4W5zNFbWY"
   },
-  "versionId": "1743c760-f853-4eec-a2d8-53c5167fde7f",
+  "versionId": "6ea9fb67-8be1-483f-8642-a461ea9fe844",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b8e5a0b86e5e2e211bec790018ac797007586ee36f18727c0ba0ff6049db12c0"
