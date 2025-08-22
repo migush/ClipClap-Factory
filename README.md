@@ -64,7 +64,7 @@ This will start:
 
 1. Open your browser and navigate to `http://localhost:5678`
 2. Complete the initial n8n setup
-3. Import the workflow from `workflow.json`
+3. Import the workflow from `ClipClat_Factory.json`
 
 ### 5. Configure API Keys (Not Implemented Yet)
 
@@ -99,14 +99,14 @@ This will start:
 ClipClap-Factory/
 ├── docker-compose.yml           # Container orchestration
 ├── start_colima.sh              # Colima startup script
-├── workflow.json                # Main workflow
+├── ClipClat_Factory.json                # Main workflow
 ├── files/                       # Generated content storage (mouted)
 └── .n8n/                        # n8n configuration (mounted)
 ```
 
 ## 🔧 Current Workflow
 
-The existing workflow (`workflow.json`) performs:
+The existing workflow (`ClipClat_Factory.json`) performs:
 
 1. **Content Discovery**: Scrapes AI news from TLDR.tech
 2. **AI Processing**: Uses Ollama to generate video scripts
@@ -117,7 +117,7 @@ The existing workflow (`workflow.json`) performs:
 ### Running the Current Workflow
 
 1. Open n8n at `http://localhost:5678`
-2. Create a new workflow and import `workflow.json`
+2. Create a new workflow and import `ClipClat_Factory.json`
 3. Navigate to the imported workflow
 4. Make necessary adjustments (e.g., API keys)
 5. Execute Workflow
