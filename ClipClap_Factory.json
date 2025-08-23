@@ -6,10 +6,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1100,
-        620
+        20,
+        740
       ],
-      "id": "66a61267-7932-4b59-b02d-400d36b61208",
+      "id": "8f9c6c99-4957-462a-96bf-9623992bfda0",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -20,10 +20,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -420,
-        860
+        700,
+        980
       ],
-      "id": "132bfe22-37bc-44e5-8e4a-75f7e2a4fb77",
+      "id": "1d825a28-b0fe-4efc-bcea-098d1c48b040",
       "name": "Ollama Chat Model",
       "credentials": {
         "ollamaApi": {
@@ -49,10 +49,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -880,
-        620
+        240,
+        740
       ],
-      "id": "12a5efae-0af7-4b96-bb2b-1e971d54ce71",
+      "id": "e5eea013-f6de-43a2-8f5d-0a4080fb12fe",
       "name": "Prepare the URL for the source articles"
     },
     {
@@ -73,10 +73,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -680,
-        620
+        440,
+        740
       ],
-      "id": "623876bc-49c1-4763-8cb9-723ac567fd7e",
+      "id": "a037ba45-4d28-4ecf-98a2-d51ed2154523",
       "name": "Extract content from the Internet"
     },
     {
@@ -88,10 +88,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -420,
-        620
+        700,
+        740
       ],
-      "id": "2f61224e-d109-4544-97e6-2a27ae467cc5",
+      "id": "fe0774b9-537b-4be2-b716-dedcb21a656e",
       "name": "Prepare a prompt for image generation",
       "notes": "{{ $json.results[0].markdown.raw_markdown }}"
     },
@@ -103,10 +103,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        40,
-        600
+        1160,
+        720
       ],
-      "id": "08ea69c3-66d8-4e15-8fc7-b969a25d46ad",
+      "id": "252ed9b7-4185-4f3c-833a-6edd1a08d818",
       "name": "Ollama Chat Model1",
       "credentials": {
         "ollamaApi": {
@@ -124,10 +124,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        60,
-        400
+        1180,
+        520
       ],
-      "id": "f1a0c4e1-a237-4122-a281-6544646e453e",
+      "id": "16bb7b77-8f8d-4fad-acec-e69a180e9133",
       "name": "Prepare a prompt for video generation"
     },
     {
@@ -171,10 +171,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        40,
-        820
+        1180,
+        940
       ],
-      "id": "ade92f18-ec6f-4277-a8a1-7c73e474482a",
+      "id": "ed803578-1630-4ef9-af30-8f23d16eff73",
       "name": "Generate Image with OpenAI API",
       "credentials": {
         "httpBearerAuth": {
@@ -218,10 +218,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        980,
-        580
+        2100,
+        700
       ],
-      "id": "4808c89b-15f3-4481-8e2e-7dd2d9d1b9de",
+      "id": "cd1f327c-747c-4289-92e1-524d8a5c3896",
       "name": "Generate Video with Freepik",
       "notesInFlow": false
     },
@@ -253,10 +253,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1380,
-        420
+        2500,
+        540
       ],
-      "id": "2ec3fd06-651e-4427-a90e-289ed7d6cfd6",
+      "id": "45311324-ac38-4b7c-9a06-a9f763092381",
       "name": "If"
     },
     {
@@ -267,10 +267,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1760,
-        840
+        2880,
+        960
       ],
-      "id": "e6d15713-682a-4502-8d01-999fde3ed954",
+      "id": "dbfa4abb-8748-470a-9359-1021e2dd8bfe",
       "name": "Wait",
       "webhookId": "3afbce18-2a6a-47f1-aa61-793596033d35"
     },
@@ -291,10 +291,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        500,
-        400
+        1620,
+        520
       ],
-      "id": "b69133ce-0ec4-4d29-808c-8da9ffc356c5",
+      "id": "3b7fb84c-89b9-46a7-982c-93babab2f746",
       "name": "Extract video prompt"
     },
     {
@@ -314,10 +314,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        500,
-        820
+        1620,
+        940
       ],
-      "id": "9da4b20d-5bce-4e5b-b08d-4d12969a29fc",
+      "id": "fd9385ed-1f15-4dec-a611-883957542777",
       "name": "Exctract image as base64"
     },
     {
@@ -329,10 +329,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        720,
-        580
+        1840,
+        700
       ],
-      "id": "a36ab4fe-41b2-4b96-99b5-3284b9dd85a2",
+      "id": "e8fcd086-b561-4449-abcf-7b34a4bf1808",
       "name": "Prepare data for Freepik API",
       "alwaysOutputData": true
     },
@@ -363,10 +363,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1200,
-        580
+        2320,
+        700
       ],
-      "id": "0dafdb01-4ede-4b09-956e-f5ed28c63517",
+      "id": "3bb484bd-02db-45b2-a66f-7e418d5d72b0",
       "name": "Check if video is generated",
       "notesInFlow": false
     },
@@ -378,10 +378,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2460,
-        520
+        3440,
+        700
       ],
-      "id": "5c0dc9d7-6e33-470d-a038-ea54aa2239cc",
+      "id": "bc3d56c2-b9e5-41ef-aa69-3571738771f4",
       "name": "Download the generated video"
     },
     {
@@ -393,10 +393,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        2700,
-        620
+        3720,
+        700
       ],
-      "id": "7c8611e4-e28e-4c42-8a32-2374b97be857",
+      "id": "2e88fd05-2ca5-4f6b-8a8f-f94e66cb1541",
       "name": "Write the video to file"
     },
     {
@@ -404,10 +404,10 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -1120,
-        -120
+        0,
+        0
       ],
-      "id": "2bab8ee7-5267-4a9f-8264-ae3dcbf575b7",
+      "id": "b1487cd7-be6c-4eb9-9eda-7cab86021948",
       "name": "Error Trigger"
     },
     {
@@ -419,10 +419,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -240,
-        160
+        880,
+        280
       ],
-      "id": "c0638196-7715-4ca9-8212-8765ba0eb498",
+      "id": "92928e33-3982-4661-b925-84883619c895",
       "name": "Save the initial text"
     },
     {
@@ -434,10 +434,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        240,
-        160
+        1360,
+        280
       ],
-      "id": "4c07d776-5e68-4c1f-978b-cf37e936585e",
+      "id": "2447f2b5-5eef-49df-bc73-d203499cbb8a",
       "name": "Write image prompt to file"
     },
     {
@@ -449,10 +449,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        760,
-        1080
+        1880,
+        1200
       ],
-      "id": "38aee00c-6f0d-4c71-8232-94c5262914e3",
+      "id": "f67f412d-5d4b-4f46-a474-75684bc60f7e",
       "name": "Write the generated image to file"
     },
     {
@@ -464,10 +464,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        720,
-        160
+        1840,
+        280
       ],
-      "id": "080e27b2-c7cc-4255-8566-c1ce79eef200",
+      "id": "778dcbdf-c921-4f9c-9bd6-e4e480435164",
       "name": "Write video prompt to file"
     },
     {
@@ -479,10 +479,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        1200,
-        160
+        2320,
+        280
       ],
-      "id": "3d0f4bac-94b4-4c97-90ee-97395f2ad7c0",
+      "id": "7c8f5436-8a29-415a-bc40-97aff0371157",
       "name": "Write Freepik request body to file"
     },
     {
@@ -494,10 +494,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        1460,
-        1080
+        2580,
+        1200
       ],
-      "id": "ec7a6ccd-5f7e-4778-a01b-33e0913c769c",
+      "id": "b777ec5a-7ccb-4247-9117-aed46c8df219",
       "name": "Write Freepik response to file"
     },
     {
@@ -509,10 +509,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1920,
-        160
+        3040,
+        280
       ],
-      "id": "e7d0f5f6-60ce-4654-8444-be622a915746",
+      "id": "e8da3baf-8eeb-48e6-9f64-aca816d56230",
       "name": "Convert status data to CSV"
     },
     {
@@ -526,10 +526,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        2140,
-        160
+        3260,
+        280
       ],
-      "id": "c2e16ee3-d594-4950-a214-672e7db8700c",
+      "id": "e37f65df-7698-4ff8-9c64-91891bf3d851",
       "name": "Save status data to CSV"
     },
     {
@@ -540,10 +540,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -900,
-        -120
+        220,
+        0
       ],
-      "id": "39bb4f98-8557-4b6a-b28e-37eab2251e6b",
+      "id": "33dec975-3c5b-49fe-92a4-c0a5b01282bc",
       "name": "Convert error to json",
       "alwaysOutputData": true
     },
@@ -556,10 +556,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -680,
-        -120
+        440,
+        0
       ],
-      "id": "598c1b35-21fa-4452-b4d9-1b9c857a0f4e",
+      "id": "75345b83-6b91-4a3f-9c5e-5725ef982382",
       "name": "Write error to file"
     },
     {
@@ -582,11 +582,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -420,
-        160
+        700,
+        280
       ],
       "name": "Call Log",
-      "id": "292bf2b9-3a53-4f79-a252-d3f6034653c7"
+      "id": "33e3b3a6-838e-4da0-b753-6b9e51fb45e7"
     },
     {
       "parameters": {
@@ -608,11 +608,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        40,
-        160
+        1160,
+        280
       ],
       "name": "Call Log_1",
-      "id": "335e73f0-fd2c-4060-89a7-a2faa15039b0"
+      "id": "8f5ff643-86e0-4a25-8d08-fc65867218ea"
     },
     {
       "parameters": {
@@ -635,11 +635,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        500,
-        1080
+        1620,
+        1200
       ],
       "name": "Call Log_1_1",
-      "id": "9fb72bcd-d91e-4197-a6a1-a1e572875d09"
+      "id": "69372139-8645-4b7f-abc9-eca43d379fbb"
     },
     {
       "parameters": {
@@ -661,11 +661,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        500,
-        160
+        1620,
+        280
       ],
       "name": "Call Log_1_1_1",
-      "id": "e76349f7-affe-42c6-9240-fd189e2abd45"
+      "id": "f990fa5e-25b3-47aa-932e-f0b9b39cdfb5"
     },
     {
       "parameters": {
@@ -687,11 +687,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1000,
-        160
+        2120,
+        280
       ],
       "name": "Call Log_1_1_1_1",
-      "id": "edd9396f-d472-4daf-a506-652efa3f33e0"
+      "id": "dbde0d41-4868-46d1-abb2-bddb552395a5"
     },
     {
       "parameters": {
@@ -714,24 +714,24 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1180,
-        1080
+        2300,
+        1200
       ],
       "name": "Call Log_1_1_1_1_1",
-      "id": "29df133d-f31e-466c-8702-030b31c27bb5"
+      "id": "1f5137fe-d323-4adb-a32e-100d24a63e08"
     },
     {
       "parameters": {
         "httpRequestMethod": "POST",
         "graphApiVersion": "v22.0",
         "node": "=17841475617920757",
-        "edge": "media",
+        "edge": "media_publish",
         "options": {
           "queryParameters": {
             "parameter": [
               {
-                "name": "image_url",
-                "value": "={{ $json.url.replace(\"dl=0\",\"dl=1\") }}"
+                "name": "creation_id",
+                "value": "={{ $json.id }}"
               },
               {
                 "name": "caption",
@@ -744,170 +744,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1280,
-        1320
-      ],
-      "id": "52be3d9c-499f-400c-9334-39d48c0674a1",
-      "name": "Facebook Graph API",
-      "credentials": {
-        "facebookGraphApi": {
-          "id": "2KuweZIBz1nhbAJN",
-          "name": "Facebook Graph account 3"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "909c946d-c7ef-4ae0-9b46-87e111c26540",
-              "name": "image_url",
-              "value": "=data:image/jpeg;base64,{{ $json.image }}",
-              "type": "string"
-            },
-            {
-              "id": "6de75fe6-3416-4814-8033-35b8ea9a6a86",
-              "name": "caption",
-              "value": "apple",
-              "type": "string"
-            },
-            {
-              "id": "53b7c6d4-cb53-4ef6-8970-842867d692b8",
-              "name": "node",
-              "value": "17841475617920757",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        800,
+        4240,
         860
       ],
-      "id": "45836747-00cf-4b25-9eba-954c1564be3a",
-      "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "httpRequestMethod": "POST",
-        "graphApiVersion": "v22.0",
-        "node": "=17841475617920757",
-        "edge": "media_publish",
-        "options": {
-          "queryParameters": {
-            "parameter": [
-              {
-                "name": "creation_id",
-                "value": "={{ $json.id }}"
-              },
-              {
-                "name": "caption",
-                "value": "=Caption"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.facebookGraphApi",
-      "typeVersion": 1,
-      "position": [
-        1540,
-        1320
-      ],
-      "id": "5f3819a8-f8cf-4714-8b3f-a3d7cff2a1a4",
-      "name": "Facebook Graph API1",
-      "credentials": {
-        "facebookGraphApi": {
-          "id": "2KuweZIBz1nhbAJN",
-          "name": "Facebook Graph account 3"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "dropboxApi",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"path\": \"{{ $json.path_lower }}\",\n    \"settings\": {\n        \"access\": \"viewer\",\n        \"allow_download\": true,\n        \"audience\": \"public\",\n        \"requested_visibility\": \"public\"\n    }\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1060,
-        1320
-      ],
-      "id": "0b9dfb05-8b0a-4cf2-92b7-9532efa42bd3",
-      "name": "HTTP Request",
-      "credentials": {
-        "dropboxApi": {
-          "id": "qqUzZQ1f2KRDipmY",
-          "name": "Dropbox account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "QAbUOt8mk5qOssHk",
-          "mode": "list",
-          "cachedResultName": "Publish the image"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        780,
-        1320
-      ],
-      "name": "Call Publish the image",
-      "id": "87e38957-1778-4203-ba15-05ed3abd5de2"
-    },
-    {
-      "parameters": {
-        "httpRequestMethod": "POST",
-        "graphApiVersion": "v22.0",
-        "node": "=17841475617920757",
-        "edge": "media_publish",
-        "options": {
-          "queryParameters": {
-            "parameter": [
-              {
-                "name": "creation_id",
-                "value": "={{ $json.id }}"
-              },
-              {
-                "name": "caption",
-                "value": "=Caption"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.facebookGraphApi",
-      "typeVersion": 1,
-      "position": [
-        3120,
-        740
-      ],
-      "id": "aae6ff39-0899-4ff0-b6ae-01fd373e8882",
+      "id": "77391a85-8bc3-4cf8-817c-527d0e77fbc3",
       "name": "Facebook Graph API3",
       "credentials": {
         "facebookGraphApi": {
@@ -951,11 +791,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        2320,
-        880
+        3440,
+        1000
       ],
       "name": "Call Publish video",
-      "id": "ae8cf672-359b-4ea1-9808-480e3730ce43",
+      "id": "f0524e0f-1d91-4106-9618-812e69e63863",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
     },
@@ -964,10 +804,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        3120,
-        1000
+        4240,
+        1120
       ],
-      "id": "92e53690-4648-479c-bd76-5b732983d58d",
+      "id": "fc911ea4-7cba-400d-881d-9ffabcba4ad1",
       "name": "Wait1",
       "webhookId": "45f8b5d0-6e2c-4689-88ec-7d774977db62"
     },
@@ -975,7 +815,7 @@
       "parameters": {
         "hostUrl": "graph-video.facebook.com",
         "graphApiVersion": "v22.0",
-        "node": "17872066899379231",
+        "node": "={{ $json.id }}",
         "options": {
           "fields": {
             "field": [
@@ -992,10 +832,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        2600,
-        880
+        3720,
+        1000
       ],
-      "id": "df889987-ca9c-4fed-8b3c-336570fbdbcf",
+      "id": "c39c718e-5a61-4169-98d7-e2035d4bd825",
       "name": "Facebook Graph API2",
       "alwaysOutputData": true,
       "credentials": {
@@ -1043,10 +883,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2880,
-        880
+        4000,
+        1000
       ],
-      "id": "29890b1d-7d8d-4c7e-afc6-131a5ba86e7c",
+      "id": "9fe04467-4e92-4252-85aa-4cf38050889c",
       "name": "If1"
     },
     {
@@ -1077,10 +917,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1500,
-        700
+        2620,
+        820
       ],
-      "id": "4bd31f15-3c8b-4fea-81b8-1979153a374a",
+      "id": "ef9bcf9f-c872-453e-a5bd-1220c1cafcdc",
       "name": "If2"
     },
     {
@@ -1090,11 +930,53 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        1760,
-        680
+        2880,
+        800
       ],
-      "id": "c8c04259-5b6b-4068-b988-fc8602710816",
+      "id": "942f5cf9-a2a7-42d2-8f04-ecf935913d11",
       "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.freepik.com/v1/ai/text-to-image/flux-dev",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-freepik-api-key",
+              "value": "FPSXa0c1a25400f3c2c3f3fd7f555a9360d2"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "image",
+              "value": "={{ $json.image }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1180,
+        1160
+      ],
+      "id": "eb80902f-b9b2-4d59-9309-f5fdfdd62183",
+      "name": "Generate Video with Freepik1",
+      "notesInFlow": false
     }
   ],
   "pinData": {
@@ -1286,11 +1168,6 @@
             "node": "Prepare data for Freepik API",
             "type": "main",
             "index": 1
-          },
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -1349,11 +1226,6 @@
         ]
       ]
     },
-    "Save the initial text": {
-      "main": [
-        []
-      ]
-    },
     "Convert status data to CSV": {
       "main": [
         [
@@ -1374,36 +1246,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Write image prompt to file": {
-      "main": [
-        []
-      ]
-    },
-    "Write the generated image to file": {
-      "main": [
-        []
-      ]
-    },
-    "Write video prompt to file": {
-      "main": [
-        []
-      ]
-    },
-    "Write Freepik request body to file": {
-      "main": [
-        []
-      ]
-    },
-    "Write Freepik response to file": {
-      "main": [
-        []
-      ]
-    },
-    "Save status data to CSV": {
-      "main": [
-        []
       ]
     },
     "Call Log": {
@@ -1433,11 +1275,6 @@
         [
           {
             "node": "Write the generated image to file",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Call Publish the image",
             "type": "main",
             "index": 0
           }
@@ -1471,44 +1308,6 @@
         [
           {
             "node": "Write Freepik response to file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Facebook Graph API": {
-      "main": [
-        [
-          {
-            "node": "Facebook Graph API1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        []
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Facebook Graph API",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Call Publish the image": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -1587,17 +1386,12 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Europe/Sofia",
-    "saveExecutionProgress": true,
-    "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "17Jlitf4W5zNFbWY"
+    "executionOrder": "v1"
   },
-  "versionId": "6ea9fb67-8be1-483f-8642-a461ea9fe844",
+  "versionId": "768faafe-bcf5-4d16-bc85-9f128edaa874",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "b8e5a0b86e5e2e211bec790018ac797007586ee36f18727c0ba0ff6049db12c0"
   },
-  "id": "17Jlitf4W5zNFbWY",
+  "id": "ju4Nth3Gu7MEM7Ib",
   "tags": []
 }
