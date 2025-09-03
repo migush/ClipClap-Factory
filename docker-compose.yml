@@ -7,11 +7,29 @@ services:
     restart: unless-stopped
     environment:
       # Optional: set N8N_BASIC_AUTH_ACTIVE=true etc.
-      TZ: Europe/Sofia
+      - TZ=Europe/Sofia
+      # Configure Axios to use mitmproxy for HTTP monitoring
+      - HTTPS_PROXY=http://mitmproxy:80
+      - HTTP_PROXY=http://mitmproxy:80
+      - https_proxy=http://mitmproxy:80
+      - http_proxy=http://mitmproxy:80
+      # Disable SSL verification for proxy (needed for mitmproxy)
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      # Additional proxy settings for better compatibility
+      - NO_PROXY=localhost,127.0.0.1,::1
+      # Enable global agent for Node.js proxy support
+      - GLOBAL_AGENT_HTTP_PROXY=http://mitmproxy:80
+      - GLOBAL_AGENT_HTTPS_PROXY=http://mitmproxy:80
+      - GLOBAL_AGENT_ENVIRONMENT_VARIABLE_NAMESPACE=
+      # n8n specific proxy configuration
+      - N8N_PROXY_HTTP=http://mitmproxy:80
+      - N8N_PROXY_HTTPS=http://mitmproxy:80
     volumes:
       # Bind your host folder (inside Colima VM) to n8n's .n8n directory
       - /my-n8n-files:/home/node/.n8n:rw
       - /ClipClap-Factory-files:/home/node/files:rw
+    networks:
+      - mitm_external
 
   crawl4ai:
     image: unclecode/crawl4ai:latest
@@ -20,3 +38,39 @@ services:
       - "11235:11235"
     restart: unless-stopped
     shm_size: 1g
+
+  mitmproxy:
+    image: mitmproxy/mitmproxy
+    hostname: mitmproxy
+    restart: always
+    tty: true
+    volumes:
+      - ./mitmproxy_data:/home/mitmproxy/.mitmproxy
+    entrypoint: mitmweb
+    command: '--web-host 0.0.0.0 -m regular@80 -m regular@443 --set web_password=changeme123 --set confdir=/home/mitmproxy/.mitmproxy --set ssl_insecure=true --set upstream_cert=false'
+    networks:
+      mitm_internal:
+        ipv4_address: 192.168.115.80
+      mitm_external:
+        ipv4_address: 192.168.116.80
+    ports:
+      - '38080:80/tcp'
+      - '38443:443/tcp'
+      - '38081:8081/tcp'
+
+networks:
+  mitm_internal:
+    name: mitm_internal
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.115.0/24
+          gateway: 192.168.115.1
+  mitm_external:
+    name: mitm_external
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.116.0/24
+          gateway: 192.168.116.1
