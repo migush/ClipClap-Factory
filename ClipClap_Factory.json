@@ -20,7 +20,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -2464,
+        -2768,
         0
       ],
       "id": "4e4bbe5e-735f-4b5d-ba6a-d9f3b068f010",
@@ -49,8 +49,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3392,
-        -208
+        -3872,
+        -640
       ],
       "id": "6662f8dc-7a48-40ea-b93f-f95816ed7222",
       "name": "Prepare the URL for the source articles"
@@ -73,8 +73,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3200,
-        -208
+        -3680,
+        -640
       ],
       "id": "9dc0cf73-7f6b-4847-b2cf-2c1501058032",
       "name": "Extract content from the Internet"
@@ -82,13 +82,13 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Create a prompt for an engaging image from the following text:\n---\n{{ $json.output }}\n---\nResult must include only the prompt. No additional text.",
+        "text": "=Create a prompt for an engaging image from the following text:\n---\n{{ $json.content }}\n---\nResult must include only the prompt. No additional text.",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -2464,
+        -2768,
         -208
       ],
       "id": "5f840b12-3d17-44eb-ba26-2c6d51aba6a5",
@@ -103,8 +103,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -2448,
-        448
+        -2752,
+        432
       ],
       "id": "ff3b887d-614a-4b65-88e7-d4d664289c9f",
       "name": "Ollama Chat Model1",
@@ -118,14 +118,14 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Rewrite the following prompt:\n---\n{{ $json.output }}\n---\nIt should be suitable for creating a cinematic 9:16, 5-second video. It must describe the desired motion and should not exceed 2500 characters.\nResult must include only the prompt. No additional text.",
+        "text": "=Create a prompt for an engaging short video from the following text:\n---\n{{ $json.content }}\n---\nIt should be suitable for creating a cinematic 9:16, 5-second video. It must describe the desired motion and should not exceed 2500 characters.\nResult must include only the prompt. No additional text.",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -2448,
-        240
+        -2752,
+        208
       ],
       "id": "b200ce11-1897-45c5-bbed-8bd22154467f",
       "name": "Prepare a prompt for video generation"
@@ -208,7 +208,7 @@
     },
     {
       "parameters": {
-        "amount": 3,
+        "amount": 1,
         "unit": "minutes"
       },
       "type": "n8n-nodes-base.wait",
@@ -239,7 +239,7 @@
       "typeVersion": 3.4,
       "position": [
         -1792,
-        240
+        208
       ],
       "id": "5f0fb3b2-57ba-45dd-a06f-8e7672609461",
       "name": "Extract video prompt"
@@ -337,13 +337,13 @@
     {
       "parameters": {
         "operation": "write",
-        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_raw_markdown.md",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_news.json",
         "options": {}
       },
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -2752,
+        -2544,
         -672
       ],
       "id": "74a92643-efc4-484e-889c-72245d0bdf92",
@@ -358,7 +358,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -1792,
+        -2048,
         -672
       ],
       "id": "963b4d4c-3dfe-45d8-ac2d-b81cb743c9a4",
@@ -450,7 +450,8 @@
         "workflowId": {
           "__rl": true,
           "value": "SIwcHGRFJCUeoU4Z",
-          "mode": "list"
+          "mode": "list",
+          "cachedResultName": "Log"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -465,7 +466,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -2944,
+        -2736,
         -672
       ],
       "name": "Call Log",
@@ -476,7 +477,8 @@
         "workflowId": {
           "__rl": true,
           "value": "EOhZDmJO4Mq3yuwN",
-          "mode": "list"
+          "mode": "list",
+          "cachedResultName": "Log"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -491,7 +493,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -2000,
+        -2256,
         -672
       ],
       "name": "Call Log_1",
@@ -540,7 +542,8 @@
               {
                 "name": "caption",
                 "value": "=Caption"
-              }
+              },
+              {}
             ]
           }
         }
@@ -571,7 +574,8 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "url_replace": "={{ $json.data.generated[0] }}"
+            "url_replace": "={{ $json.data.generated[0] }}",
+            "caption": "={{ $('Select News').item.json.title }}}"
           },
           "matchingColumns": [
             "url_replace"
@@ -584,6 +588,16 @@
               "defaultMatch": false,
               "display": true,
               "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
               "removed": false
             }
           ],
@@ -752,8 +766,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -2928,
-        -208
+        -3408,
+        -640
       ],
       "id": "58c1b4ae-734f-4cae-b069-7830998d0a75",
       "name": "Prepare a prompt for image generation1",
@@ -767,8 +781,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -2928,
-        16
+        -3408,
+        -416
       ],
       "id": "855cdd10-07b3-4e45-a58a-9a40cf23407b",
       "name": "Ollama Chat Model2",
@@ -778,48 +792,6 @@
           "name": "Ollama account"
         }
       }
-    },
-    {
-      "parameters": {
-        "operation": "write",
-        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_story.txt",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        -2272,
-        -672
-      ],
-      "id": "6ac0ee90-fdd9-4707-a223-8772702d2435",
-      "name": "Write image prompt to file1"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "EOhZDmJO4Mq3yuwN",
-          "mode": "list",
-          "cachedResultName": "Log"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        -2480,
-        -672
-      ],
-      "name": "Call Log_",
-      "id": "0ae2a634-36de-4bb6-b3c8-03398305cb64"
     },
     {
       "parameters": {
@@ -970,13 +942,13 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"num_images\": 1,\n  \"aspect_ratio\": \"social_story_9_16\",\n  \"person_generation\": \"allow_all\",\n  \"safety_settings\": \"block_none\",\n  \"prompt\": \"{{ $json.output }}\",\n  \"styling\": {\n    \"style\": \"photo\"\n  }\n}",
+        "jsonBody": "={\n  \"num_images\": 1,\n  \"aspect_ratio\": \"social_story_9_16\",\n  \"person_generation\": \"allow_all\",\n  \"safety_settings\": \"block_none\",\n  \"prompt\": \"{{ $json.output.replace(/\"/g,'\\\\\"') }}\",\n  \"styling\": {\n    \"style\": \"photo\"\n  }\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -2016,
+        -2256,
         -208
       ],
       "id": "71f458a8-5e41-485f-b7cb-d1621d9492d5",
@@ -1011,6 +983,80 @@
       ],
       "id": "a32c8969-ffba-47c6-88f8-b4601a7131cb",
       "name": "Write the video to file1"
+    },
+    {
+      "parameters": {
+        "url": "https://www.dnevnik.bg/rss/",
+        "options": {
+          "customFields": ""
+        }
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -3424,
+        -208
+      ],
+      "id": "6d2af469-90c5-4b12-bf4b-968276914a4d",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $items()[Math.round(Math.random()*$items().length)].json}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3216,
+        -208
+      ],
+      "id": "f20a9c12-6118-4774-b11c-e78a17783329",
+      "name": "Select News",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "resource": "speech",
+        "voice": {
+          "__rl": true,
+          "value": "zzBTsLBFM6AOJtkr1e9b",
+          "mode": "id"
+        },
+        "text": "={{ $json.title }}",
+        "additionalOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
+      "typeVersion": 1,
+      "position": [
+        -2752,
+        656
+      ],
+      "id": "0cd396d7-61ba-4d3a-a9d7-ac4190a56997",
+      "name": "Convert text to speech",
+      "credentials": {
+        "elevenLabsApi": {
+          "id": "yYJtvo3bZoPmuc8T",
+          "name": "ElevenLabs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_voice_over.mp3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -2544,
+        656
+      ],
+      "id": "64e49339-fcbc-433f-ae51-ebe087f3a9b3",
+      "name": "Read/Write Files from Disk"
     }
   ],
   "pinData": {
@@ -1025,7 +1071,7 @@
       "main": [
         [
           {
-            "node": "Prepare the URL for the source articles",
+            "node": "RSS Read",
             "type": "main",
             "index": 0
           }
@@ -1057,11 +1103,6 @@
     "Extract content from the Internet": {
       "main": [
         [
-          {
-            "node": "Call Log",
-            "type": "main",
-            "index": 0
-          },
           {
             "node": "Prepare a prompt for image generation1",
             "type": "main",
@@ -1358,36 +1399,9 @@
         ]
       ]
     },
-    "Call Log_": {
-      "main": [
-        [
-          {
-            "node": "Write image prompt to file1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Prepare a prompt for image generation1": {
       "main": [
-        [
-          {
-            "node": "Call Log_",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Prepare a prompt for image generation",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Prepare a prompt for video generation",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "If3": {
@@ -1474,6 +1488,54 @@
           }
         ]
       ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Select News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select News": {
+      "main": [
+        [
+          {
+            "node": "Call Log",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare a prompt for image generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare a prompt for video generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert text to speech",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert text to speech": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -1484,7 +1546,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "errorWorkflow": "17Jlitf4W5zNFbWY"
   },
-  "versionId": "cd621f02-100a-4283-8b6d-86c876625924",
+  "versionId": "88dce0c9-0533-42a5-8a55-228727d7a565",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "b8e5a0b86e5e2e211bec790018ac797007586ee36f18727c0ba0ff6049db12c0"
