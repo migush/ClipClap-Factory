@@ -31,6 +31,18 @@ services:
     networks:
       - mitm_external
 
+  ffmpeg-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.ffmpeg-api
+    container_name: ffmpeg-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - /ClipClap-Factory-files:/app/files:rw
+    networks:
+      - mitm_external
+
   crawl4ai:
     image: unclecode/crawl4ai:latest
     container_name: crawl4ai

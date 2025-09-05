@@ -6,10 +6,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -3616,
-        -208
+        -4528,
+        -352
       ],
-      "id": "0cc319c1-0098-47c0-a95b-0588eb67b1cb",
+      "id": "92b38832-6002-43f2-bdf3-06be97be4e65",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -20,10 +20,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -2768,
-        0
+        -3784,
+        -4
       ],
-      "id": "4e4bbe5e-735f-4b5d-ba6a-d9f3b068f010",
+      "id": "12c00e5f-2d2c-415f-9901-266cf793202b",
       "name": "Ollama Chat Model",
       "credentials": {
         "ollamaApi": {
@@ -49,10 +49,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3872,
-        -640
+        -4528,
+        -1208
       ],
-      "id": "6662f8dc-7a48-40ea-b93f-f95816ed7222",
+      "id": "da7ef686-cf15-4c7c-8e78-a638690d0ced",
       "name": "Prepare the URL for the source articles"
     },
     {
@@ -73,10 +73,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3680,
-        -640
+        -4304,
+        -1208
       ],
-      "id": "9dc0cf73-7f6b-4847-b2cf-2c1501058032",
+      "id": "4183eea6-557f-4a09-8356-1ae39fecf481",
       "name": "Extract content from the Internet"
     },
     {
@@ -88,10 +88,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -2768,
-        -208
+        -3856,
+        -228
       ],
-      "id": "5f840b12-3d17-44eb-ba26-2c6d51aba6a5",
+      "id": "c0455dbd-f9ab-4879-8dc1-f63f3109e04e",
       "name": "Prepare a prompt for image generation",
       "notes": "{{ $json.results[0].markdown.raw_markdown }}"
     },
@@ -103,10 +103,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -2752,
-        432
+        -3208,
+        736
       ],
-      "id": "ff3b887d-614a-4b65-88e7-d4d664289c9f",
+      "id": "31ff687e-ae62-48ad-84f7-d76c93483de0",
       "name": "Ollama Chat Model1",
       "credentials": {
         "ollamaApi": {
@@ -124,10 +124,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -2752,
-        208
+        -3280,
+        512
       ],
-      "id": "b200ce11-1897-45c5-bbed-8bd22154467f",
+      "id": "c28d7dc8-45cf-462b-a3f4-5889dbd4642f",
       "name": "Prepare a prompt for video generation"
     },
     {
@@ -165,10 +165,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -880,
-        16
+        -2480,
+        156
       ],
-      "id": "33f64235-7e64-413e-8207-c748f164a65b",
+      "id": "0879ee5b-36f7-4739-a329-2f8f62096aee",
       "name": "Generate Video with Freepik",
       "notesInFlow": false
     },
@@ -200,10 +200,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -368,
-        0
+        -2032,
+        252
       ],
-      "id": "50eba565-b2d0-4347-b322-7e864aa411b0",
+      "id": "dfbbb4ee-3cc5-43d3-ae23-b14c2386a223",
       "name": "If"
     },
     {
@@ -214,10 +214,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        256,
-        352
+        -1584,
+        516
       ],
-      "id": "af9f9337-33e5-410a-b116-7da32f0e2352",
+      "id": "af911c36-2171-41b8-a9b3-b5c3fa636667",
       "name": "Wait",
       "webhookId": "3afbce18-2a6a-47f1-aa61-793596033d35"
     },
@@ -238,10 +238,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1792,
-        208
+        -2928,
+        512
       ],
-      "id": "5f0fb3b2-57ba-45dd-a06f-8e7672609461",
+      "id": "acca5170-3d49-4486-99ba-05d31a81d680",
       "name": "Extract video prompt"
     },
     {
@@ -253,10 +253,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -1184,
-        16
+        -2704,
+        80
       ],
-      "id": "7242233b-1089-471f-bba3-ad1f7892add8",
+      "id": "15b98c00-efad-4106-b358-5133369c5b3d",
       "name": "Prepare data for Freepik API",
       "alwaysOutputData": true
     },
@@ -287,10 +287,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -608,
-        0
+        -2256,
+        252
       ],
-      "id": "e1fce651-1f47-4711-91e4-41aa54957ab1",
+      "id": "9e30120b-6e81-4b65-b165-113362317f90",
       "name": "Check if video is generated",
       "notesInFlow": false
     },
@@ -302,10 +302,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        272,
-        -272
+        -1808,
+        108
       ],
-      "id": "32fa0706-4dc4-440d-9496-12ff8d02aeb2",
+      "id": "1a6181c7-c36f-4948-b885-06a34b8e04c2",
       "name": "Download the generated video"
     },
     {
@@ -317,10 +317,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        528,
-        -272
+        -1584,
+        108
       ],
-      "id": "f7226abc-80fb-44d1-8c3d-989d176555db",
+      "id": "4e7bbccd-ad6a-4af7-b46a-f03b7ce9eef5",
       "name": "Write the video to file"
     },
     {
@@ -328,10 +328,10 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -3632,
-        -960
+        -4528,
+        -1536
       ],
-      "id": "d0798d3a-74f9-432f-b7ca-0353561e8ab1",
+      "id": "3f6216b7-cd40-4e88-8ffe-1f701479d7b9",
       "name": "Error Trigger"
     },
     {
@@ -343,10 +343,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -2544,
-        -672
+        -3504,
+        -880
       ],
-      "id": "74a92643-efc4-484e-889c-72245d0bdf92",
+      "id": "52c3afeb-cbd0-4bd0-87b5-9ff672c4a283",
       "name": "Save the initial text"
     },
     {
@@ -358,10 +358,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -2048,
-        -672
+        -3216,
+        -540
       ],
-      "id": "963b4d4c-3dfe-45d8-ac2d-b81cb743c9a4",
+      "id": "cc620745-949d-4491-8480-e830395be2f6",
       "name": "Write image prompt to file"
     },
     {
@@ -373,10 +373,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -1216,
-        -672
+        -2480,
+        396
       ],
-      "id": "07ec9142-182e-4fe8-827e-9b27a19f6d8a",
+      "id": "e7f18e8c-ed49-4d0f-9594-97920280d97d",
       "name": "Write video prompt to file"
     },
     {
@@ -389,10 +389,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -352,
-        -272
+        -2032,
+        -228
       ],
-      "id": "5778fff3-1519-4233-8d84-9450d38b14f1",
+      "id": "5048f3ea-7ac4-440c-b7b3-8f0ff8b89cee",
       "name": "Convert status data to CSV",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
@@ -408,10 +408,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -80,
-        -272
+        -1808,
+        -228
       ],
-      "id": "d2afef90-bf05-403f-b6a1-72d6c38fc191",
+      "id": "5d540fec-6030-4c22-bf3a-333d4ca43eaa",
       "name": "Save status data to CSV",
       "onError": "continueRegularOutput"
     },
@@ -423,10 +423,10 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -3424,
-        -960
+        -4304,
+        -1536
       ],
-      "id": "78bc5283-b73c-4182-981a-0cfb6a88acaa",
+      "id": "2e28340c-db81-4563-872c-023c796237b9",
       "name": "Convert error to json",
       "alwaysOutputData": true
     },
@@ -439,10 +439,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -3200,
-        -960
+        -4080,
+        -1536
       ],
-      "id": "608afe0c-9f47-4987-b4da-f7f810953c75",
+      "id": "334d1c2a-d276-4196-9911-d0cc7deeb63c",
       "name": "Write error to file"
     },
     {
@@ -466,11 +466,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -2736,
-        -672
+        -3792,
+        -880
       ],
       "name": "Call Log",
-      "id": "0408e204-f6c2-403f-aa8c-b483f1dd1197"
+      "id": "9c1b77dc-dde2-4f92-a072-059b554f5f2f"
     },
     {
       "parameters": {
@@ -493,11 +493,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -2256,
-        -672
+        -3504,
+        -540
       ],
       "name": "Call Log_1",
-      "id": "c850986f-7e81-4840-9415-4432d81fd0ee"
+      "id": "ea0ad198-21a1-4d49-acb9-ef0bddc13fe1"
     },
     {
       "parameters": {
@@ -520,11 +520,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -1504,
-        -672
+        -2704,
+        396
       ],
       "name": "Call Log_1_1_1",
-      "id": "db30d6d2-5c9a-4975-afe8-695dbeb049be"
+      "id": "3b227283-bfdb-4266-86ac-1788f4256227"
     },
     {
       "parameters": {
@@ -551,10 +551,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        1152,
-        -256
+        208,
+        -736
       ],
-      "id": "3d195a2e-6b7a-4045-8d85-e724ba5b4f26",
+      "id": "7a74fc63-b8d6-4a5f-ba90-f518026e211d",
       "name": "Facebook Graph API3",
       "credentials": {
         "facebookGraphApi": {
@@ -574,7 +574,7 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "url_replace": "={{ $json.data.generated[0] }}",
+            "url_replace": "={{ $json.combined_video_path }}",
             "caption": "={{ $('Select News').item.json.title }}}"
           },
           "matchingColumns": [
@@ -609,11 +609,11 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        256,
-        -16
+        -464,
+        -644
       ],
       "name": "Call Publish video",
-      "id": "5fa697e4-7487-4b87-91cd-ebe46d0a7b79",
+      "id": "3e599aef-a176-4c78-b9a7-290889d10892",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
     },
@@ -625,10 +625,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1152,
-        0
+        208,
+        -544
       ],
-      "id": "5009259b-bde7-4440-a645-9acb3eb84d0c",
+      "id": "60cb4cb8-f206-4d6d-a366-11ed8afdbffd",
       "name": "Wait1",
       "webhookId": "45f8b5d0-6e2c-4689-88ec-7d774977db62"
     },
@@ -653,10 +653,10 @@
       "type": "n8n-nodes-base.facebookGraphApi",
       "typeVersion": 1,
       "position": [
-        544,
-        -16
+        -240,
+        -644
       ],
-      "id": "25b243e3-8c52-4205-90bf-841ba8cb13ac",
+      "id": "c8c47bd9-89c4-4fcc-96ac-1929f7d687c0",
       "name": "Facebook Graph API2",
       "alwaysOutputData": true,
       "credentials": {
@@ -704,10 +704,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        800,
-        -16
+        -16,
+        -716
       ],
-      "id": "02ca4eac-afcc-4d41-ab67-f5d11295284f",
+      "id": "f8001aa4-b169-4f92-b684-630c861b3411",
       "name": "If1"
     },
     {
@@ -738,10 +738,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -96,
-        192
+        -1808,
+        348
       ],
-      "id": "73d2e5b5-9b92-4077-b3f8-1c0b127c3656",
+      "id": "28929cc0-76b0-4c49-946b-ea67e7a9eaaf",
       "name": "If2"
     },
     {
@@ -751,10 +751,10 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        256,
-        176
+        -1584,
+        300
       ],
-      "id": "b74a461a-2277-4c64-99f5-3be6d2daabef",
+      "id": "2f870c4c-2861-4f80-97cc-bad739fefa44",
       "name": "Stop and Error"
     },
     {
@@ -766,10 +766,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -3408,
-        -640
+        -4080,
+        -1312
       ],
-      "id": "58c1b4ae-734f-4cae-b069-7830998d0a75",
+      "id": "b08b1d2a-5a30-4d46-98eb-40b0df7fafd2",
       "name": "Prepare a prompt for image generation1",
       "notes": "{{ $json.results[0].markdown.raw_markdown }}"
     },
@@ -781,10 +781,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
       "typeVersion": 1,
       "position": [
-        -3408,
-        -416
+        -4008,
+        -1088
       ],
-      "id": "855cdd10-07b3-4e45-a58a-9a40cf23407b",
+      "id": "a77a91ce-b519-40b9-b500-d8a6af671304",
       "name": "Ollama Chat Model2",
       "credentials": {
         "ollamaApi": {
@@ -821,10 +821,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1504,
-        -208
+        -2928,
+        -296
       ],
-      "id": "49773b1f-6999-4f10-99ba-2a91b1ebc558",
+      "id": "9f193707-d256-444e-b557-d98ba7b653c0",
       "name": "If3"
     },
     {
@@ -835,10 +835,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -832,
-        -176
+        -2480,
+        -36
       ],
-      "id": "566dbba9-f1ec-4c5d-90fd-fb70e7dd654a",
+      "id": "93bafcb9-f534-4b64-b13d-1dae62eadeaa",
       "name": "Wait2",
       "webhookId": "3afbce18-2a6a-47f1-aa61-793596033d35"
     },
@@ -869,10 +869,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1792,
-        -208
+        -3216,
+        -132
       ],
-      "id": "8402fee6-6709-43fe-8286-9cc3e9359347",
+      "id": "dcf39f87-9b73-43b7-ac63-1643c3057934",
       "name": "Check if video is generated1",
       "notesInFlow": false
     },
@@ -904,10 +904,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1232,
-        -192
+        -2704,
+        -256
       ],
-      "id": "03a3f8ad-65d6-4ee6-a416-e07a12081c7e",
+      "id": "63acfc04-f0a4-46a3-95cb-2ac7d95fc7cb",
       "name": "If4"
     },
     {
@@ -917,10 +917,10 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        -960,
-        -448
+        -2480,
+        -348
       ],
-      "id": "45d5ccd9-3a25-4eb0-9f49-d6d2e770e927",
+      "id": "688d419a-ec25-41f4-ad7b-f2128cd05d5d",
       "name": "Stop and Error1"
     },
     {
@@ -948,10 +948,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -2256,
-        -208
+        -3504,
+        -132
       ],
-      "id": "71f458a8-5e41-485f-b7cb-d1621d9492d5",
+      "id": "ed77fab5-d4d3-4aa9-a42a-9a899c60f195",
       "name": "Generate Photo with Freepik1",
       "notesInFlow": false
     },
@@ -963,10 +963,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -944,
-        -672
+        -2704,
+        -540
       ],
-      "id": "c5576ba3-be21-406f-85ed-d9f74df3dee5",
+      "id": "9c04116f-f7f0-4b7e-951a-08b19733370b",
       "name": "Download the generated video1"
     },
     {
@@ -978,10 +978,10 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -736,
-        -672
+        -2480,
+        -540
       ],
-      "id": "a32c8969-ffba-47c6-88f8-b4601a7131cb",
+      "id": "8710e2a8-d2be-43ea-a010-c6c07cda65c7",
       "name": "Write the video to file1"
     },
     {
@@ -994,10 +994,10 @@
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.2,
       "position": [
-        -3424,
-        -208
+        -4304,
+        -352
       ],
-      "id": "6d2af469-90c5-4b12-bf4b-968276914a4d",
+      "id": "4926c5bf-bbd4-4171-826c-2ca5b09a5dbd",
       "name": "RSS Read"
     },
     {
@@ -1009,10 +1009,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3216,
-        -208
+        -4080,
+        -352
       ],
-      "id": "f20a9c12-6118-4774-b11c-e78a17783329",
+      "id": "57fa0892-dea4-4e7d-8181-615d9f6599fa",
       "name": "Select News",
       "executeOnce": true
     },
@@ -1031,10 +1031,10 @@
       "type": "@elevenlabs/n8n-nodes-elevenlabs.elevenLabs",
       "typeVersion": 1,
       "position": [
-        -2752,
-        656
+        -1808,
+        -736
       ],
-      "id": "0cd396d7-61ba-4d3a-a9d7-ac4190a56997",
+      "id": "17d2e315-2a30-4beb-b9d3-4343085852ef",
       "name": "Convert text to speech",
       "credentials": {
         "elevenLabsApi": {
@@ -1045,6 +1045,117 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ffmpeg-success-check",
+              "leftValue": "={{ $json.success }}",
+              "rightValue": "={{ true }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -912,
+        -548
+      ],
+      "id": "7807e97f-bc70-4086-a488-cab980eb705e",
+      "name": "Check ffmpeg Success"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "combined-video-path",
+              "name": "combined_video_path",
+              "value": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_combined.mp4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -688,
+        -644
+      ],
+      "id": "434d7c04-5fb5-4aaa-9a87-22b687cf42e5",
+      "name": "Set Combined Video Path"
+    },
+    {
+      "parameters": {
+        "errorMessage": "ffmpeg failed to combine audio and video"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        -452
+      ],
+      "id": "2ba51b61-2d1c-4419-a17e-56f7f9e2be80",
+      "name": "ffmpeg Error Stop"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://ffmpeg-api:8080/combine",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "audio_file",
+              "value": "={{ $('Write Audio File').item.json.fileName }}"
+            },
+            {
+              "name": "video_file",
+              "value": "={{ $('Write the video to file').item.json.fileName }}"
+            },
+            {
+              "name": "output_file",
+              "value": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_combined.mp4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1136,
+        -548
+      ],
+      "id": "a11a70b9-f765-45b3-8b22-e8f3025739dc",
+      "name": "Merge audio and video"
+    },
+    {
+      "parameters": {
         "operation": "write",
         "fileName": "=./files/{{$now.format(\"yyyy_MM_dd\")}}_{{ $execution.id }}_voice_over.mp3",
         "options": {}
@@ -1052,11 +1163,27 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        -2544,
-        656
+        -1584,
+        -736
       ],
-      "id": "64e49339-fcbc-433f-ae51-ebe087f3a9b3",
-      "name": "Read/Write Files from Disk"
+      "id": "10e3c80e-4471-43f9-8d35-f32abb54c985",
+      "name": "Write Audio File"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1360,
+        -548
+      ],
+      "id": "c3285eaa-f4ff-49c1-8149-4328eff38cb1",
+      "name": "Prepare data for Freepik API1",
+      "alwaysOutputData": true
     }
   ],
   "pinData": {
@@ -1172,11 +1299,6 @@
             "node": "Download the generated video",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Call Publish video",
-            "type": "main",
-            "index": 0
           }
         ],
         [
@@ -1247,6 +1369,46 @@
         [
           {
             "node": "Write the video to file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write the video to file": {
+      "main": [
+        [
+          {
+            "node": "Prepare data for Freepik API1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Check ffmpeg Success": {
+      "main": [
+        [
+          {
+            "node": "Set Combined Video Path",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ffmpeg Error Stop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Combined Video Path": {
+      "main": [
+        [
+          {
+            "node": "Call Publish video",
             "type": "main",
             "index": 0
           }
@@ -1399,11 +1561,6 @@
         ]
       ]
     },
-    "Prepare a prompt for image generation1": {
-      "main": [
-        []
-      ]
-    },
     "If3": {
       "main": [
         [
@@ -1530,7 +1687,40 @@
       "main": [
         [
           {
-            "node": "Read/Write Files from Disk",
+            "node": "Write Audio File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge audio and video": {
+      "main": [
+        [
+          {
+            "node": "Check ffmpeg Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Audio File": {
+      "main": [
+        [
+          {
+            "node": "Prepare data for Freepik API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare data for Freepik API1": {
+      "main": [
+        [
+          {
+            "node": "Merge audio and video",
             "type": "main",
             "index": 0
           }
@@ -1540,17 +1730,12 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Europe/Sofia",
-    "saveExecutionProgress": true,
-    "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "17Jlitf4W5zNFbWY"
+    "executionOrder": "v1"
   },
-  "versionId": "88dce0c9-0533-42a5-8a55-228727d7a565",
+  "versionId": "b4b3bd51-5437-4959-9700-2d151fb90cb1",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "b8e5a0b86e5e2e211bec790018ac797007586ee36f18727c0ba0ff6049db12c0"
   },
-  "id": "17Jlitf4W5zNFbWY",
+  "id": "FaB8StZGwh71vK4a",
   "tags": []
 }

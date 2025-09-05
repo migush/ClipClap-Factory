@@ -1,0 +1,16 @@
+FROM python:3.11-alpine
+
+# Install ffmpeg
+RUN apk add --no-cache ffmpeg
+
+# Set working directory
+WORKDIR /app
+
+# Copy the ffmpeg API script
+COPY ffmpeg-api.py .
+
+# Expose port
+EXPOSE 8080
+
+# Run the API server
+CMD ["python", "ffmpeg-api.py"]
